@@ -59,6 +59,7 @@ public class Laser : MonoBehaviour
     private void CalculateInput() {
         // 추가된 인풋들
         foreach(LaserInput li in nextInputList) {
+            if (li == null) return;
             if (prevInputList.Find(pli => li.Equals(pli)) == null) {
                 li.OnInputStart(this);
             }
@@ -66,6 +67,7 @@ public class Laser : MonoBehaviour
 
         // 제거된 인풋들
         foreach(LaserInput li in prevInputList) {
+            if (li == null) return;
             if (nextInputList.Find(nli => li.Equals(nli)) == null) {
                 li.OnInputEnd(this);
             }
@@ -88,7 +90,7 @@ public class Laser : MonoBehaviour
             // 맞은 오브젝트가 거울이면
             if (hitObjName.Contains("Mirror")) {
                 reflectionCount++;
-                // 반사벡터 = 빛 - 2 * (노말dot빛) * 노말
+                // 반사벡터 = 빛 - 2 * (노말 * 빛) * 노말
                 Vector3 reflectionDir = dir - 2 * (Vector3.Dot(hit.normal, dir)) * hit.normal;
                 ReflectLaser(lineIndex + 1, hit.point, reflectionDir);
             } else if (hitObjName.Contains("Input")) {
