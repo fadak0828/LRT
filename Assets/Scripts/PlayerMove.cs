@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
 
     void Start()
     {
+        // 실행시 화면창에 마우스가 안보이게 하고 싶다
         Cursor.visible = false; //커서를 화면에서 안보이게
         Cursor.lockState = CursorLockMode.Locked; //커서를 마우스 화면 중앙에 고정
     }
@@ -21,6 +22,7 @@ public class PlayerMove : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         Vector3 dir = new Vector3(h, 0, v);
+        dir = Camera.main.transform.TransformDirection(dir);
         dir.Normalize();
         dir.y = 0;
         
