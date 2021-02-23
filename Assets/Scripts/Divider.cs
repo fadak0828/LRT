@@ -13,9 +13,11 @@ public class Divider : MonoBehaviour, LaserInput
         laserColor = laser.laserColor;
         output1.gameObject.SetActive(true);
         output1.laserColor = laserColor;
+        output1.width = laser.width;
 
         output2.gameObject.SetActive(true);
         output2.laserColor = laserColor;
+        output2.width = laser.width;
     }
 
     public void OnInputEnd(Laser laser) {

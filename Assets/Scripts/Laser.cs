@@ -59,14 +59,14 @@ public class Laser : MonoBehaviour
     private void CalculateInput() {
         // 추가된 인풋들
         foreach(LaserInput li in nextInputList) {
-            if (prevInputList.Find(pli => pli.Equals(li)) == null) {
+            if (prevInputList.Find(pli => li.Equals(pli)) == null) {
                 li.OnInputStart(this);
             }
         }
 
         // 제거된 인풋들
         foreach(LaserInput li in prevInputList) {
-            if (nextInputList.Find(nli => nli.Equals(li)) == null) {
+            if (nextInputList.Find(nli => li.Equals(nli)) == null) {
                 li.OnInputEnd(this);
             }
         }
