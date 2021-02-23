@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class Divider : MonoBehaviour, LaserInput
 {
-    public GameObject inputSurface;
-    public Laser output1;
-    public Laser output2;
-    public LaserColor laserColor = LaserColor.NONE;
+    public float width = 0.1f;
+    public LaserShooter output1;
+    public LaserShooter output2;
 
-    public void OnInputStart(Laser laser) {
-        laserColor = laser.laserColor;
-        output1.gameObject.SetActive(true);
-        output1.laserColor = laserColor;
-        output1.width = laser.width;
+    private bool dividerOn = false;
 
-        output2.gameObject.SetActive(true);
-        output2.laserColor = laserColor;
-        output2.width = laser.width;
+    public void OnLaserInput(LaserHit hit) {
+        if (dividerOn == false) {
+            output1.laserColor = hit.color;
+            output2.laserColor = hit.color;
+
+            output1.width = hit.width;
+            output2.width = hit.width;
+
+            output1.enabled = true;
+            output2.enabled = true;
+            dividerOn = true;
+        }
     }
 
-    public void OnInputEnd(Laser laser) {
-        laserColor = LaserColor.NONE;
-        output1.gameObject.SetActive(false);
-        output2.gameObject.SetActive(false);
+    public void OnLaserInputEnd() {
+        output1.enabled = false;
+        output2.enabled = false;
+        dividerOn = false;
     }
 }

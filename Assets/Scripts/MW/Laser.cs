@@ -2,6 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public interface LaserInput {
+    void OnLaserInput(LaserHit hit);
+    void OnLaserInputEnd();
+}
+
+public class LaserHit {
+    public RaycastHit raycastHit;
+    public LaserInput hitLaserInput;
+    public float width;
+    public LaserColor color;
+    public Vector3 inputDir;
+    public LaserHit(RaycastHit hit, LaserInput hitLaserInput, Vector3 inputDir, LaserColor color, float width) {
+        this.raycastHit = hit;
+        this.hitLaserInput = hitLaserInput;
+        this.inputDir = inputDir;
+        this.color = color;
+        this.width = width;
+    }
+
+    public override bool Equals(object obj)
+    {
+        GameObject n = ((LaserHit)obj).raycastHit.collider.gameObject;
+        GameObject nn = raycastHit.collider.gameObject;
+
+        Debug.Log($"{n.name} {nn.name} {n == nn} {n.Equals(nn)}");
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+}
 public enum LaserColor {
     NONE,
     RED,
@@ -9,103 +42,58 @@ public enum LaserColor {
     BLUE,
 }
 
-public interface LaserInput {
-    void OnInputStart(Laser laser);
-    void OnInputEnd(Laser laser);
-}
+public class Laser {
+    public static void Shoot(LineRenderer lineRenderer, Vector3 startPos, Vector3 dir, float width, LaserColor color, ref LaserHit prevLaserHit) {
+        lineRenderer.positionCount = 2;
 
-public class Laser : MonoBehaviour
-{
-    public LaserColor laserColor = LaserColor.RED;
-    public float width = 0.2f;
-
-    private LineRenderer lineRenderer;
-    private int reflectionCount = 0;
-
-    private List<LaserInput> prevInputList;
-    private List<LaserInput> nextInputList;
-
-    private void Awake() {
-        lineRenderer = gameObject.AddComponent<LineRenderer>();
-    }
-
-    void Start()
-    {
-        lineRenderer.startWidth = width;
-        lineRenderer.endWidth = width;
-        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
-
-        prevInputList = new List<LaserInput>();
-        nextInputList = new List<LaserInput>();
-    }
-
-    void Update()
-    {
-        Color lineColor = LaserColorToColor(laserColor);
+        Color lineColor = Laser.GetColor(color);
         lineRenderer.startColor = lineColor;
         lineRenderer.endColor = lineColor;
 
-        lineRenderer.SetPosition(0, transform.position);
-        reflectionCount = 0;
+        lineRenderer.startWidth = width;
+        lineRenderer.endWidth = width;
 
-        nextInputList = new List<LaserInput>();
-
-        ReflectLaser(0, transform.position, transform.forward);
-        CalculateInput();
-
-        prevInputList = nextInputList;
-    }
-
-    private void CalculateInput() {
-        // 추가된 인풋들
-        foreach(LaserInput li in nextInputList) {
-            if (li == null) return;
-            if (prevInputList.Find(pli => li.Equals(pli)) == null) {
-                li.OnInputStart(this);
-            }
-        }
-
-        // 제거된 인풋들
-        foreach(LaserInput li in prevInputList) {
-            if (li == null) return;
-            if (nextInputList.Find(nli => li.Equals(nli)) == null) {
-                li.OnInputEnd(this);
-            }
-        }
-    }
-
-    private void ReflectLaser(int lineIndex, Vector3 point, Vector3 dir) {
-        lineRenderer.positionCount = reflectionCount + 2;
+        lineRenderer.SetPosition(0, startPos);
 
         RaycastHit hit;
+        LaserHit laserHit = null;
         // 레이캐스트
-        if (Physics.Raycast(point, dir, out hit))
+        if (Physics.Raycast(startPos, dir, out hit))
         {
-            // print(hit.collider.name);
-
             // 맞은곳까지 라인 그리기
-            lineRenderer.SetPosition(lineIndex + 1, hit.point);
+            lineRenderer.SetPosition(1, hit.point);
 
-            string hitObjName = hit.transform.name;
-            // 맞은 오브젝트가 거울이면
-            if (hitObjName.Contains("Mirror")) {
-                reflectionCount++;
-                // 반사벡터 = 빛 - 2 * (노말 * 빛) * 노말
-                Vector3 reflectionDir = dir - 2 * (Vector3.Dot(hit.normal, dir)) * hit.normal;
-                ReflectLaser(lineIndex + 1, hit.point, reflectionDir);
-            } else if (hitObjName.Contains("Input")) {
-                Divider div = hit.collider.gameObject.GetComponent<Divider>();
-                nextInputList.Add(div);
+            LaserInput laserHitObj = hit.collider.GetComponent<LaserInput>();
+            if (laserHitObj != null) {
+                laserHit = new LaserHit(hit, laserHitObj, dir, color, width);
             }
         }
         else
         {
             // 안맞았으면 1000유닛까지 라인 그리기
-            lineRenderer.SetPosition(lineIndex + 1, dir * 1000);
+            lineRenderer.SetPosition(1, dir * 1000);
+        }
+
+        if (laserHit != null)
+        {
+            if (prevLaserHit != null && prevLaserHit.Equals(laserHit))
+            {
+                prevLaserHit.hitLaserInput.OnLaserInputEnd();
+            } 
+            laserHit.hitLaserInput.OnLaserInput(laserHit);
+            prevLaserHit = laserHit;
+        }
+        else
+        {
+            if (prevLaserHit != null)
+            {
+                prevLaserHit.hitLaserInput.OnLaserInputEnd();
+                prevLaserHit = null;
+            }
         }
     }
 
-    private Color LaserColorToColor(LaserColor lc) {
+    public static Color GetColor(LaserColor lc) {
         switch (lc)
         {
             case LaserColor.RED :
