@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface LaserInput {
     void OnLaserInput(LaserHit hit);
-    void OnLaserInputEnd();
+    void OnLaserInputEnd(LaserHit hit);
 }
 
 public class LaserHit {
@@ -36,10 +36,14 @@ public class LaserHit {
     }
 }
 public enum LaserColor {
-    NONE,
     RED,
     GREEN,
     BLUE,
+    YELLOW,
+    PURPLE,
+    CYAN,
+    WHITE,
+    NONE
 }
 
 public class Laser {
@@ -78,7 +82,7 @@ public class Laser {
         {
             if (prevLaserHit != null && prevLaserHit.Equals(laserHit))
             {
-                prevLaserHit.hitLaserInput.OnLaserInputEnd();
+                prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
             } 
             laserHit.hitLaserInput.OnLaserInput(laserHit);
             prevLaserHit = laserHit;
@@ -87,7 +91,7 @@ public class Laser {
         {
             if (prevLaserHit != null)
             {
-                prevLaserHit.hitLaserInput.OnLaserInputEnd();
+                prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
                 prevLaserHit = null;
             }
         }
@@ -96,12 +100,20 @@ public class Laser {
     public static Color GetColor(LaserColor lc) {
         switch (lc)
         {
-            case LaserColor.RED :
+            case LaserColor.RED:
                 return Color.red;
             case LaserColor.BLUE:
                 return Color.blue;
             case LaserColor.GREEN:
                 return Color.green;
+            case LaserColor.CYAN:
+                return Color.cyan;
+            case LaserColor.PURPLE:
+                return Color.magenta;
+            case LaserColor.WHITE:
+                return Color.white;
+            case LaserColor.YELLOW:
+                return Color.yellow;
             default:
                 throw new System.Exception("존재하지 않는 LaserColor 값 입니다.");
         }

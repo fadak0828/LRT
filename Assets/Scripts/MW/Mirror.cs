@@ -23,7 +23,7 @@ public class Mirror : MonoBehaviour, LaserInput
         Laser.Shoot(lr, hit.raycastHit.point, dir, hit.width, hit.color, ref prevLaserHit);
     }
 
-    public void OnLaserInputEnd() {
+    public void OnLaserInputEnd(LaserHit hit) {
         lr.enabled = false;
     }
 }

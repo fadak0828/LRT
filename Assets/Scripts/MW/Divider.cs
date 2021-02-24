@@ -24,7 +24,7 @@ public class Divider : MonoBehaviour, LaserInput
         }
     }
 
-    public void OnLaserInputEnd() {
+    public void OnLaserInputEnd(LaserHit hit) {
         output1.enabled = false;
         output2.enabled = false;
         dividerOn = false;
