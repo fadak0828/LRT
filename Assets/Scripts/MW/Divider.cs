@@ -8,7 +8,17 @@ public class Divider : MonoBehaviour, LaserInput
     public LaserShooter output1;
     public LaserShooter output2;
 
-    private bool dividerOn = false;
+    public bool dividerOn = false;
+
+    private void Update() {
+        if (dividerOn) {
+            output1.enabled = true;
+            output2.enabled = true;
+        } else {
+            output1.enabled = false;
+            output2.enabled = false;
+        }
+    }
 
     public void OnLaserInput(LaserHit hit) {
         if (dividerOn == false) {
