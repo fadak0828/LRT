@@ -97,6 +97,10 @@ public class Laser {
         }
     }
 
+    private void Reflect(int reflectIndex, LaserHit hit) {
+
+    }
+
     public static Color GetColor(LaserColor lc) {
         switch (lc)
         {
