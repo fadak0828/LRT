@@ -128,6 +128,40 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1792509518}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &17470570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7025737775532893953, guid: f1c2c860626ddd74181a0ce9db40bd08,
+    type: 3}
+  m_PrefabInstance: {fileID: 7025737774465361346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &17470574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17470570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd22a44041288e4a8f797c042bf7021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needColor: 0
+  goalIn: 0
+--- !u!64 &17470575
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17470570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &18618216
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3974,6 +4008,8 @@ GameObject:
   - component: {fileID: 558308200}
   - component: {fileID: 558308202}
   - component: {fileID: 558308201}
+  - component: {fileID: 558308203}
+  - component: {fileID: 558308204}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -4041,6 +4077,34 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558308199}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &558308203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558308199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dd22a44041288e4a8f797c042bf7021, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needColor: 3
+  goalIn: 0
+--- !u!64 &558308204
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558308199}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &561252946
 PrefabInstance:
@@ -6544,7 +6608,7 @@ Transform:
   - {fileID: 1722708824}
   - {fileID: 2048204383}
   m_Father: {fileID: 1592879415}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!23 &921528105
 MeshRenderer:
@@ -9074,6 +9138,54 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1236371682}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1242740192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242740193}
+  - component: {fileID: 1242740194}
+  m_Layer: 0
+  m_Name: Stage2Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1242740193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242740192}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 12.384069, y: -4.2686033, z: 0.845546}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1592879415}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242740194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242740192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecb0618a51bcc7243b38c1937be34b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needGoals:
+  - {fileID: 558308203}
+  - {fileID: 17470574}
+  environments:
+  - {fileID: 546613482}
 --- !u!1001 &1251178242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10710,13 +10822,14 @@ Transform:
   m_LocalPosition: {x: -2.5006833, y: 1.679416, z: -1.7114302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 113768919}
   - {fileID: 921528104}
+  - {fileID: 113768919}
   - {fileID: 1586096589}
   - {fileID: 2120712929}
   - {fileID: 3348861359162843512}
   - {fileID: 2058381255}
   - {fileID: 546613483}
+  - {fileID: 1242740193}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
