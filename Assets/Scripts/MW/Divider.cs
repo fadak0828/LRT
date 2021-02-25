@@ -10,33 +10,56 @@ public class Divider : MonoBehaviour, LaserInput
 
     public bool dividerOn = false;
 
-    private void Update() {
-        if (dividerOn) {
+    private void Update()
+    {
+        if (dividerOn)
+        {
             output1.enabled = true;
             output2.enabled = true;
-        } else {
+        }
+        else
+        {
             output1.enabled = false;
             output2.enabled = false;
         }
     }
 
-    public void OnLaserInput(LaserHit hit) {
-        if (dividerOn == false) {
-            output1.laserColor = hit.color;
-            output2.laserColor = hit.color;
-
-            output1.width = hit.width;
-            output2.width = hit.width;
-
-            output1.enabled = true;
-            output2.enabled = true;
-            dividerOn = true;
+    public void OnLaserInput(LaserHit hit)
+    {
+        if (dividerOn == false)
+        {
+            if (hit.color == LaserColor.YELLOW)
+            {
+                DividerOn(hit, LaserColor.RED, LaserColor.GREEN);
+            }
+            else if (hit.color == LaserColor.PURPLE)
+            {
+                DividerOn(hit, LaserColor.RED, LaserColor.BLUE);
+            }
+            else if (hit.color == LaserColor.CYAN)
+            {
+                DividerOn(hit, LaserColor.BLUE, LaserColor.GREEN);
+            }
         }
     }
 
-    public void OnLaserInputEnd(LaserHit hit) {
+    public void OnLaserInputEnd(LaserHit hit)
+    {
         output1.enabled = false;
         output2.enabled = false;
         dividerOn = false;
+    }
+
+    private void DividerOn(LaserHit hit, LaserColor color1, LaserColor color2)
+    {
+        output1.laserColor = color1;
+        output2.laserColor = color2;
+
+        output1.width = hit.width;
+        output2.width = hit.width;
+
+        output1.enabled = true;
+        output2.enabled = true;
+        dividerOn = true;
     }
 }
