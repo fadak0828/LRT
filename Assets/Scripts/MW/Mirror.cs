@@ -12,11 +12,6 @@ public class Mirror : MonoBehaviour, LaserInput
         lr.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     public void OnLaserInput(LaserHit hit) {
         lr.enabled = true;
         Vector3 dir = Vector3.Reflect(hit.inputDir, hit.raycastHit.normal);
