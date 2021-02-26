@@ -7,7 +7,6 @@ using Valve.VR;
 // 만약 Grip 버튼을 뗐는데 손에 Item을 쥐고 있다면 놓고싶다
 public class Grip : MonoBehaviour
 {
-    public SteamVR_Behaviour_Pose pose;
     public SteamVR_Action_Boolean grip;
     public float Addforce = 3;
     GameObject gripObject;

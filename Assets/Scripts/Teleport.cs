@@ -71,7 +71,9 @@ public class Teleport : MonoBehaviour
                 if (hitlayer == LayerMask.NameToLayer("Floor"))
                 {
                     // 그곳으로 이동하고 싶다
-                    transform.position = hitInfo.transform.position;
+                    transform.position = hitInfo.point;
+                    // tower 같은 곳으로 이동할때 사용함
+                    //transform.position = hitInfo.transform.position;
                 }
 
             }
