@@ -38,14 +38,16 @@ public class Divider : MonoBehaviour, LaserInput
         {
             DividerOn(hit, LaserColor.BLUE, LaserColor.GREEN);
         } else {
-            dividerOn = false;
+            DivderOff();
         }
     }
 
     public void OnLaserInputEnd(LaserHit hit)
     {
-        output1.enabled = false;
-        output2.enabled = false;
+        DivderOff();
+    }
+
+    private void DivderOff() {
         dividerOn = false;
     }
 
@@ -57,8 +59,6 @@ public class Divider : MonoBehaviour, LaserInput
         output1.width = hit.width;
         output2.width = hit.width;
 
-        output1.enabled = true;
-        output2.enabled = true;
         dividerOn = true;
     }
 }
