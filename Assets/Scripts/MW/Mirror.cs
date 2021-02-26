@@ -20,9 +20,11 @@ public class Mirror : MonoBehaviour, LaserInput
 
     public void OnLaserInputEnd(LaserHit hit) {
         lr.enabled = false;
-        if (prevLaserHit != null) {
-            prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
-            prevLaserHit = null;
-        }
+        // if (prevLaserHit != null) {
+        //     prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
+        //     prevLaserHit = null;
+        // }
+        prevLaserHit = null;
+        Laser.Shoot(lr, transform.position, Vector3.zero, 0, hit.color, ref prevLaserHit);
     }
 }

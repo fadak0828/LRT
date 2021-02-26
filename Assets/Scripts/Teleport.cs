@@ -6,6 +6,7 @@ using Valve.VR;
 public class Teleport : MonoBehaviour
 {
     public GameObject maker;
+    public GameObject cameraRig;
     public Transform hand;
     public SteamVR_Action_Boolean teleport;
     public LineRenderer lr;
@@ -19,6 +20,8 @@ public class Teleport : MonoBehaviour
     {
         maker.SetActive(false);
         lr.enabled = false;
+        lr.startWidth = 0.003f;
+        lr.endWidth = 0.003f;
         makerOriginScale = maker.transform.localScale;
     }
 
@@ -38,7 +41,7 @@ public class Teleport : MonoBehaviour
         Ray ray = new Ray(hand.position, hand.forward);
         lr.SetPosition(0, ray.origin);
         RaycastHit hitInfo;
-        bool isRayCast = Physics.Raycast(ray, out hitInfo);
+        bool isRayCast = Physics.Raycast(ray, out hitInfo, 10, LayerMask.GetMask("Floor", "Wall"));
         if (isRayCast)
         {
             lr.SetPosition(1, hitInfo.point);
@@ -71,7 +74,9 @@ public class Teleport : MonoBehaviour
                 if (hitlayer == LayerMask.NameToLayer("Floor"))
                 {
                     // 그곳으로 이동하고 싶다
-                    transform.position = hitInfo.point;
+                    transform.position = hitInfo.point + new Vector3(0, transform.position.y, 0);
+                    cameraRig.transform.localPosition = new Vector3(0, 0.5f, 0);
+                    
                     // tower 같은 곳으로 이동할때 사용함
                     //transform.position = hitInfo.transform.position;
                 }

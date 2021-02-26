@@ -75,7 +75,7 @@ public class Grip : MonoBehaviour
 
     private void Catch()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 100f, LayerMask.GetMask("Item"));
+        Collider[] cols = Physics.OverlapSphere(transform.position, 0.3f, LayerMask.GetMask("Item"));
         if (cols.Length > 0)
         {
             for (int i = 0; i < cols.Length; i++)
@@ -90,7 +90,7 @@ public class Grip : MonoBehaviour
                         grabObject.transform.parent = null;
                     }
                     grabObject.transform.position = transform.position;
-                    grabObject.transform.localPosition += new Vector3(0, 0, 0.3f);
+                    grabObject.transform.localPosition += new Vector3(0, 0, 0.01f);
                     grabObject.transform.parent = gameObject.transform;
                     break;
                 }
