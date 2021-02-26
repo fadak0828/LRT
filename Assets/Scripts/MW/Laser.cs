@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,20 +19,6 @@ public class LaserHit {
         this.inputDir = inputDir;
         this.color = color;
         this.width = width;
-    }
-
-    public override bool Equals(object obj)
-    {
-        GameObject n = ((LaserHit)obj).raycastHit.collider.gameObject;
-        GameObject nn = raycastHit.collider.gameObject;
-
-        Debug.Log($"{n.name} {nn.name} {n == nn} {n.Equals(nn)}");
-        return base.Equals(obj);
-    }
-
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
     }
 }
 public enum LaserColor {

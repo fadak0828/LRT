@@ -27,6 +27,7 @@ public class Mirror : MonoBehaviour, LaserInput
         lr.enabled = false;
         if (prevLaserHit != null) {
             prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
+            prevLaserHit = null;
         }
     }
 }
