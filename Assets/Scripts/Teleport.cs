@@ -31,7 +31,7 @@ public class Teleport : MonoBehaviour
             maker.SetActive(true);
             // lr을 켜고싶다
             lr.enabled = true;
-            makerOriginScale = maker.transform.position;
+            
         }
 
         // Ray를 이용해서 왼쪽 컨트롤러의 앞방향으로 바라보고싶다
