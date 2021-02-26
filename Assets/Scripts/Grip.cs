@@ -4,55 +4,98 @@ using UnityEngine;
 using Valve.VR;
 
 
-// 만약 Grip 버튼을 뗐는데 손에 Item을 쥐고 있다면 놓고싶다
+// Player 컨트롤러의 Grip 버튼을 누르면 반경 1M안에 있는 충돌체를 검사후 Grabbable 컴포넌트가 있는 Item을 잡고싶다
 public class Grip : MonoBehaviour
 {
+    public SteamVR_Behaviour_Pose pose;
     public SteamVR_Action_Boolean grip;
-    public float Addforce = 3;
-    GameObject gripObject;
+    public SteamVR_Action_Boolean trigger;
+    public SteamVR_Input_Sources hand;
+    public LineRenderer lr;
 
-    private void OnTriggerStay(Collider other)
-    {
-        // 만약 OnTriggerStay에서 부딪힌 상대가 item이고 컨트롤러의 Grip 버튼을 눌렀다면
-        if (grip.GetStateDown(SteamVR_Input_Sources.RightHand))
-        {
-            if (other.name.Contains("Item"))
-            {
-                // 손에 item을 쥐고싶다
-                GameObject item = Instantiate(other.gameObject);
-                item.name = "Item";
-                item.layer = LayerMask.NameToLayer("Item");
-                item.transform.position = transform.position;
-                item.transform.parent = transform.parent;
-                item.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-                item.GetComponent<Collider>().isTrigger = false;
-                item.GetComponent<Rigidbody>().isKinematic = true;
+    public GameObject grabObject;
 
-                gripObject = item;
-            }
-        }
-    }
-    void Start()
+    private void Start()
     {
-        
+        pose = GetComponent<SteamVR_Behaviour_Pose>();
     }
 
-    
     void Update()
     {
-        // 만약 Grip 버튼을 뗐는데
-        if (grip.GetStateUp(SteamVR_Input_Sources.RightHand))
+        // 트리거를 당기면
+        if (trigger.GetState(hand))
         {
-            // 손에 item을 쥐고 있다면
-            if (gripObject != null)
+            // 선을 그리고 싶다.
+            lr.enabled = true;
+
+            // Ray를 이용해서 바라보고
+            Ray ray = new Ray(transform.position, transform.forward);
+            lr.SetPosition(0, ray.origin);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray, out hitInfo))
             {
-                // 놓고싶다
-                gripObject.transform.parent = null;
-                gripObject.GetComponent<Collider>().isTrigger = false;
-
-                gripObject = null;
+                lr.SetPosition(1, hitInfo.point);
+                // 만약 부딪힌것이 Grabbable 이면 당겨오고싶다.
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
+                {
+                    hitInfo.transform.position = Vector3.Lerp(hitInfo.transform.position, transform.position, Time.deltaTime * 5);
+                }
             }
+        }
+        else
+        {
+            // 트리거를 놓으면 선을 그리지 않고싶다.
+            lr.enabled = false;
+        }
 
+        if (grip.GetStateDown(hand))
+        {
+            Catch();
+        }
+        if (grip.GetStateUp(hand))
+        {
+            Throw();
         }
     }
+    internal void 놔줘()
+    {
+        grabObject = null;
+    }
+
+    private void Throw()
+    {
+        if (grabObject != null)
+        {
+            //grabObject.놓다(pose);
+            //grabObject = null;
+            grabObject.transform.parent = null;
+            grabObject = null;
+        }
+    }
+
+    private void Catch()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, 100f, LayerMask.GetMask("Item"));
+        if (cols.Length > 0)
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                grabObject = cols[i].gameObject;
+                if (grabObject != null)
+                {
+                    //grabObject.잡다(transform.position, transform);
+                    // 만약 다른손이 잡고있던 물체였다면 다른손에게 "놔줘" 라고 요청하고싶다
+                    if (grabObject.transform.parent != null)
+                    {
+                        grabObject.transform.parent = null;
+                    }
+                    grabObject.transform.position = transform.position;
+                    grabObject.transform.localPosition += new Vector3(0, 0, 0.3f);
+                    grabObject.transform.parent = gameObject.transform;
+                    break;
+                }
+            }
+        }
+    }
+
 }
