@@ -16,7 +16,7 @@ public class LaserShooter : MonoBehaviour
 
     void Start()
     {
-        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+        lineRenderer.material = MaterialManager.Instance.laserMaterial;
     }
 
     void Update()

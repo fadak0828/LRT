@@ -9,7 +9,7 @@ public class Mirror : MonoBehaviour, LaserInput
     void Start()
     {
         lr = GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+        lr.material = MaterialManager.Instance.laserMaterial;
     }
 
     public void OnLaserInput(LaserHit hit) {
