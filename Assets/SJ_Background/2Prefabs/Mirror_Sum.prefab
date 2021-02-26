@@ -133,8 +133,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2771010812795620645}
-  m_Layer: 0
-  m_Name: Sum
+  - component: {fileID: 3476463437275757159}
+  m_Layer: 8
+  m_Name: Mirror_Sum
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 3260407168133978015}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 2.795, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
   - {fileID: 3743992847420017966}
   - {fileID: 9062534721787490559}
@@ -159,6 +160,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!65 &3476463437275757159
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260407168133978015}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0019004, y: 0.83258206, z: 2.0192797}
+  m_Center: {x: 0.003096481, y: 0.45543683, z: -0.025269758}
 --- !u!1 &3546337390382116196
 GameObject:
   m_ObjectHideFlags: 0

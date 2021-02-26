@@ -8,7 +8,10 @@ public class Teleport : MonoBehaviour
     public GameObject maker;
     public GameObject cameraRig;
     public Transform hand;
+    public float turnDegree = 30;
     public SteamVR_Action_Boolean teleport;
+    public SteamVR_Action_Boolean snapTurnLeft;
+    public SteamVR_Action_Boolean snapTurnRight;
     public LineRenderer lr;
 
     // 마커의 기본크기를 기억하고 싶다
@@ -27,6 +30,7 @@ public class Teleport : MonoBehaviour
 
     void Update()
     {
+        Turn();
         // 만약 왼쪽 컨트롤러의 telefort 버튼을 누르면
         if (teleport.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
@@ -75,7 +79,7 @@ public class Teleport : MonoBehaviour
                 {
                     // 그곳으로 이동하고 싶다
                     transform.position = hitInfo.point + new Vector3(0, transform.position.y, 0);
-                    cameraRig.transform.localPosition = new Vector3(0, 0.5f, 0);
+                    cameraRig.transform.localPosition = Vector3.zero;
                     
                     // tower 같은 곳으로 이동할때 사용함
                     //transform.position = hitInfo.transform.position;
@@ -85,5 +89,15 @@ public class Teleport : MonoBehaviour
 
         }
 
+    }
+
+    private void Turn() {
+        if (snapTurnLeft.GetStateDown(SteamVR_Input_Sources.LeftHand)) {
+            print("turn left");
+            transform.Rotate(0, -turnDegree, 0);
+        } else if (snapTurnRight.GetStateDown(SteamVR_Input_Sources.LeftHand)) {
+            print("turn right");
+            transform.Rotate(0, turnDegree, 0);
+        }
     }
 }

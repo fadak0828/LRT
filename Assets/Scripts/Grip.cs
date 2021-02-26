@@ -22,31 +22,31 @@ public class Grip : MonoBehaviour
 
     void Update()
     {
-        // 트리거를 당기면
-        if (trigger.GetState(hand))
-        {
-            // 선을 그리고 싶다.
-            lr.enabled = true;
+        // // 트리거를 당기면
+        // if (trigger.GetState(hand))
+        // {
+        //     // 선을 그리고 싶다.
+        //     lr.enabled = true;
 
-            // Ray를 이용해서 바라보고
-            Ray ray = new Ray(transform.position, transform.forward);
-            lr.SetPosition(0, ray.origin);
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray, out hitInfo))
-            {
-                lr.SetPosition(1, hitInfo.point);
-                // 만약 부딪힌것이 Grabbable 이면 당겨오고싶다.
-                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
-                {
-                    hitInfo.transform.position = Vector3.Lerp(hitInfo.transform.position, transform.position, Time.deltaTime * 5);
-                }
-            }
-        }
-        else
-        {
-            // 트리거를 놓으면 선을 그리지 않고싶다.
-            lr.enabled = false;
-        }
+        //     // Ray를 이용해서 바라보고
+        //     Ray ray = new Ray(transform.position, transform.forward);
+        //     lr.SetPosition(0, ray.origin);
+        //     RaycastHit hitInfo;
+        //     if (Physics.Raycast(ray, out hitInfo))
+        //     {
+        //         lr.SetPosition(1, hitInfo.point);
+        //         // 만약 부딪힌것이 Grabbable 이면 당겨오고싶다.
+        //         if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
+        //         {
+        //             hitInfo.transform.position = Vector3.Lerp(hitInfo.transform.position, transform.position, Time.deltaTime * 5);
+        //         }
+        //     }
+        // }
+        // else
+        // {
+        //     // 트리거를 놓으면 선을 그리지 않고싶다.
+        //     lr.enabled = false;
+        // }
 
         if (grip.GetStateDown(hand))
         {
@@ -68,32 +68,27 @@ public class Grip : MonoBehaviour
         {
             //grabObject.놓다(pose);
             //grabObject = null;
-            grabObject.transform.parent = null;
+            grabObject.transform.SetParent(null, true);
             grabObject = null;
         }
     }
 
     private void Catch()
     {
-        Collider[] cols = Physics.OverlapSphere(transform.position, 0.3f, LayerMask.GetMask("Item"));
+        Collider[] cols = Physics.OverlapSphere(transform.position, 0.05f, LayerMask.GetMask("Item"));
         if (cols.Length > 0)
         {
-            for (int i = 0; i < cols.Length; i++)
+            grabObject = cols[0].gameObject;
+            if (grabObject != null)
             {
-                grabObject = cols[i].gameObject;
-                if (grabObject != null)
+                //grabObject.잡다(transform.position, transform);
+                // 만약 다른손이 잡고있던 물체였다면 다른손에게 "놔줘" 라고 요청하고싶다
+                if (grabObject.transform.parent != null)
                 {
-                    //grabObject.잡다(transform.position, transform);
-                    // 만약 다른손이 잡고있던 물체였다면 다른손에게 "놔줘" 라고 요청하고싶다
-                    if (grabObject.transform.parent != null)
-                    {
-                        grabObject.transform.parent = null;
-                    }
-                    grabObject.transform.position = transform.position;
-                    grabObject.transform.localPosition += new Vector3(0, 0, 0.01f);
-                    grabObject.transform.parent = gameObject.transform;
-                    break;
+                    grabObject.transform.parent = null;
                 }
+                // grabObject.transform.position = transform.position + transform.forward * 0.01f;
+                grabObject.transform.parent = gameObject.transform;
             }
         }
     }
