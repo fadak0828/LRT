@@ -11,8 +11,7 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         
-        Cursor.visible = false; //커서를 화면에서 안보이게
-        Cursor.lockState = CursorLockMode.Locked; //커서를 마우스 화면 중앙에 고정
+        
     }
 
     void Update()
