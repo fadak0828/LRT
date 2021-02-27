@@ -26,19 +26,20 @@ public class Divider : MonoBehaviour, LaserInput
 
     public void OnLaserInput(LaserHit hit)
     {
-        if (hit.color == LaserColor.YELLOW)
+        switch (hit.color)
         {
-            DividerOn(hit, LaserColor.RED, LaserColor.GREEN);
-        }
-        else if (hit.color == LaserColor.PURPLE)
-        {
-            DividerOn(hit, LaserColor.RED, LaserColor.BLUE);
-        }
-        else if (hit.color == LaserColor.CYAN)
-        {
-            DividerOn(hit, LaserColor.BLUE, LaserColor.GREEN);
-        } else {
-            DivderOff();
+            case LaserColor.YELLOW:
+                DividerOn(hit, LaserColor.RED, LaserColor.GREEN);
+                break;
+            case LaserColor.PURPLE:
+                DividerOn(hit, LaserColor.RED, LaserColor.BLUE);
+                break;
+            case LaserColor.CYAN:
+                DividerOn(hit, LaserColor.BLUE, LaserColor.GREEN);
+                break;
+            default:
+                DivderOff();
+                break;
         }
     }
 
@@ -47,7 +48,8 @@ public class Divider : MonoBehaviour, LaserInput
         DivderOff();
     }
 
-    private void DivderOff() {
+    private void DivderOff()
+    {
         dividerOn = false;
     }
 

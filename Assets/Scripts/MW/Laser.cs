@@ -22,14 +22,24 @@ public class LaserHit {
     }
 }
 public enum LaserColor {
-    RED,
-    GREEN,
-    BLUE,
-    YELLOW,
-    PURPLE,
-    CYAN,
-    WHITE,
-    NONE
+    /*
+        NONE    = 000
+        RED     = 001
+        GREEN   = 010
+        BLUE    = 100
+        YELLOW  = (R + G)     = 011
+        PURPLE  = (R + B)     = 101
+        CYAN    = (G + B)     = 110
+        WHITE   = (R + G + B) = 111
+    */
+    NONE = 0,
+    RED = 1 << 0,
+    GREEN = 1 << 1,
+    BLUE = 1 << 2,
+    YELLOW = LaserColor.RED + LaserColor.GREEN,
+    PURPLE = LaserColor.RED + LaserColor.BLUE,
+    CYAN = LaserColor.GREEN + LaserColor.BLUE,
+    WHITE = LaserColor.RED + LaserColor.GREEN + LaserColor.BLUE
 }
 
 public class Laser {
