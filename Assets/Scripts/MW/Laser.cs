@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface LaserInput {
-    void OnLaserInput(LaserHit hit);
-    void OnLaserInputEnd(LaserHit hit);
+public abstract class LaserInput : MonoBehaviour {
+    abstract public void OnLaserInput(LaserHit hit);
+    abstract public void OnLaserInputEnd(LaserHit hit);
 }
 
 public class LaserHit {
@@ -36,10 +36,10 @@ public enum LaserColor {
     RED = 1 << 0,
     GREEN = 1 << 1,
     BLUE = 1 << 2,
-    YELLOW = LaserColor.RED + LaserColor.GREEN,
-    PURPLE = LaserColor.RED + LaserColor.BLUE,
-    CYAN = LaserColor.GREEN + LaserColor.BLUE,
-    WHITE = LaserColor.RED + LaserColor.GREEN + LaserColor.BLUE
+    YELLOW = LaserColor.RED | LaserColor.GREEN,
+    PURPLE = LaserColor.RED | LaserColor.BLUE,
+    CYAN = LaserColor.GREEN | LaserColor.BLUE,
+    WHITE = LaserColor.RED | LaserColor.GREEN | LaserColor.BLUE
 }
 
 public class Laser {
@@ -76,7 +76,7 @@ public class Laser {
 
         if (laserHit != null)
         {
-            if (prevLaserHit != null && prevLaserHit.Equals(laserHit))
+            if (prevLaserHit != null && prevLaserHit.hitLaserInput.gameObject == laserHit.hitLaserInput.gameObject)
             {
                 prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
             } 

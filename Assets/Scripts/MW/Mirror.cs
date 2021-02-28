@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mirror : MonoBehaviour, LaserInput
+public class Mirror : LaserInput
 {
     private LineRenderer lr;
     private LaserHit prevLaserHit;
@@ -12,13 +12,13 @@ public class Mirror : MonoBehaviour, LaserInput
         lr.material = MaterialManager.Instance.laserMaterial;
     }
 
-    public void OnLaserInput(LaserHit hit) {
+    override public void OnLaserInput(LaserHit hit) {
         lr.enabled = true;
         Vector3 dir = Vector3.Reflect(hit.inputDir, hit.raycastHit.normal);
         Laser.Shoot(lr, hit.raycastHit.point, dir, hit.width, hit.color, ref prevLaserHit);
     }
 
-    public void OnLaserInputEnd(LaserHit hit) {
+    override public void OnLaserInputEnd(LaserHit hit) {
         lr.enabled = false;
         if (prevLaserHit != null) {
             prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);

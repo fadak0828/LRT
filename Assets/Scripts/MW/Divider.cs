@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Divider : MonoBehaviour, LaserInput
+public class Divider : LaserInput
 {
     public float width = 0.1f;
     public LaserShooter output1;
@@ -24,7 +24,7 @@ public class Divider : MonoBehaviour, LaserInput
         }
     }
 
-    public void OnLaserInput(LaserHit hit)
+    override public void OnLaserInput(LaserHit hit)
     {
         switch (hit.color)
         {
@@ -43,7 +43,7 @@ public class Divider : MonoBehaviour, LaserInput
         }
     }
 
-    public void OnLaserInputEnd(LaserHit hit)
+    override public void OnLaserInputEnd(LaserHit hit)
     {
         DivderOff();
     }

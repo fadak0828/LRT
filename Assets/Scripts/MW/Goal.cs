@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
-public class Goal : MonoBehaviour, LaserInput
+public class Goal : LaserInput
 {
     public LaserColor needColor;
     public GameObject needColorObj;
@@ -26,10 +26,10 @@ public class Goal : MonoBehaviour, LaserInput
         needColorObj.GetComponent<Renderer>().sharedMaterial = mat;
     }
 
-    public void OnLaserInput(LaserHit hit) {
+    override public void OnLaserInput(LaserHit hit) {
         goalIn = hit.color == needColor;
     }
-    public void OnLaserInputEnd(LaserHit hit) {
+    override public void OnLaserInputEnd(LaserHit hit) {
         goalIn = false;
     }
 }
