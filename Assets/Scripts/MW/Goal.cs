@@ -10,7 +10,19 @@ public class Goal : LaserInput
     public GameObject redMarker;
     public GameObject blueMarker;
     public GameObject greenMarker;
-    public bool goalIn;
+
+    private bool _goalIn;
+    public bool goalIn {
+        get { return _goalIn; }
+        set {
+            _goalIn = value;
+            if (goalIn) {
+                EmissionOn();
+            } else {
+                EmissionOff();
+            }
+        }
+    }
 
     private void Awake() {
         redMarker.SetActive(((int)needColor & (int)LaserColor.RED) != 0);    
@@ -24,6 +36,14 @@ public class Goal : LaserInput
         mat.SetColor("_EmissionColor", Laser.GetColor(needColor));
 
         needColorObj.GetComponent<Renderer>().sharedMaterial = mat;
+    }
+
+    private void EmissionOn() {
+
+    }
+
+    private void EmissionOff() {
+
     }
 
     override public void OnLaserInput(LaserHit hit) {
