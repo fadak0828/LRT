@@ -76,7 +76,7 @@ public class Laser {
 
         if (laserHit != null)
         {
-            if (prevLaserHit != null && prevLaserHit.hitLaserInput.gameObject == laserHit.hitLaserInput.gameObject)
+            if (prevLaserHit != null && !GameObject.ReferenceEquals(prevLaserHit.hitLaserInput.gameObject, laserHit.hitLaserInput.gameObject))
             {
                 prevLaserHit.hitLaserInput.OnLaserInputEnd(prevLaserHit);
             } 

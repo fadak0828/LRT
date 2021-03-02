@@ -6,6 +6,7 @@ public class Wall : MonoBehaviour, StageEnv {
     public float downSpeed = 0.1f;
     public GameObject dustParticle;
     public int finishCount=50;
+    public GameObject sound;
     int count;
 
     private void Start() {
@@ -14,9 +15,9 @@ public class Wall : MonoBehaviour, StageEnv {
     public void OnStageClear() {
         dustParticle.SetActive(true);
 
-        Invoke("DownWall", 0.1f);
-        
+        sound.SetActive(true);
 
+        Invoke("DownWall", 0.1f);
     }
 
     void DownWall() {
