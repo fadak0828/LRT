@@ -6,7 +6,7 @@ using Valve.VR;
 public class Teleport : MonoBehaviour
 {
     public GameObject maker;
-    public GameObject cameraRig;
+    public GameObject cam;
     public Transform hand;
     public float turnDegree = 30;
     public SteamVR_Action_Boolean teleport;
@@ -32,13 +32,12 @@ public class Teleport : MonoBehaviour
     {
         Turn();
         // 만약 왼쪽 컨트롤러의 telefort 버튼을 누르면
-        if (teleport.GetStateDown(SteamVR_Input_Sources.LeftHand))
+        bool teleportButtonDown = teleport.GetStateDown(SteamVR_Input_Sources.LeftHand);
+        if (teleportButtonDown)
         {
-            // 조준점이 보이고
-            maker.SetActive(true);
             // lr을 켜고싶다
             lr.enabled = true;
-            
+            maker.SetActive(true);
         }
 
         // Ray를 이용해서 왼쪽 컨트롤러의 앞방향으로 바라보고싶다
@@ -48,19 +47,23 @@ public class Teleport : MonoBehaviour
         bool isRayCast = Physics.Raycast(ray, out hitInfo, 10, LayerMask.GetMask("Floor", "Wall"));
         if (isRayCast)
         {
+            // 조준선이 보이고
             lr.SetPosition(1, hitInfo.point);
-            maker.transform.position = hitInfo.point + hitInfo.normal * 0.1f;
-            maker.transform.localScale = makerOriginScale * kAdjust * hitInfo.distance;
-            maker.transform.forward = hitInfo.normal;
         }
         else
         {
             // 허공
             Vector3 pos = ray.origin + ray.direction * 100;
             lr.SetPosition(1, pos);
-            maker.transform.position = pos;
-            maker.transform.localScale = makerOriginScale * kAdjust * 100;
-            maker.transform.forward = ray.origin;
+        }
+
+        
+        // ray가 floor에 맞았으면 마커의 position을 hitInfo.point와 같게한다 
+        if (teleport.GetState(SteamVR_Input_Sources.LeftHand) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Floor")) {
+            maker.transform.position = hitInfo.point;
+            maker.SetActive(true);
+        } else {
+            maker.SetActive(false);
         }
 
         // 그렇지 않고 왼쪽 컨트롤러의 teleport 버튼을 떼면
@@ -79,7 +82,9 @@ public class Teleport : MonoBehaviour
                 {
                     // 그곳으로 이동하고 싶다
                     transform.position = hitInfo.point + new Vector3(0, transform.position.y, 0);
-                    cameraRig.transform.localPosition = Vector3.zero;
+
+                    Vector3 headPos = SteamVR_Render.Top().head.position;
+                    SteamVR_Render.Top().head.position = new Vector3(0, headPos.y, 0);
                     
                     // tower 같은 곳으로 이동할때 사용함
                     //transform.position = hitInfo.transform.position;
