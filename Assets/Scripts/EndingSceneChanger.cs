@@ -8,7 +8,7 @@ public class EndingSceneChanger : MonoBehaviour
 
     public void MainGame()
     {
-        SceneManager.LoadScene("Background");
+        SceneManager.LoadScene("StartScene");
     }
     
     public void ExitGame()

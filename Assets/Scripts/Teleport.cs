@@ -59,7 +59,8 @@ public class Teleport : MonoBehaviour
 
         
         // ray가 floor에 맞았으면 마커의 position을 hitInfo.point와 같게한다 
-        if (teleport.GetState(SteamVR_Input_Sources.LeftHand) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Floor")) {
+        if (teleport.GetState(SteamVR_Input_Sources.LeftHand) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
             maker.transform.position = hitInfo.point;
             maker.SetActive(true);
         } else {
