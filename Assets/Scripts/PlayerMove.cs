@@ -11,7 +11,6 @@ public class PlayerMove : MonoBehaviour
     void Start()
     {
         
-        
     }
 
     void Update()
