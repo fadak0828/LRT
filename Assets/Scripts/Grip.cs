@@ -89,6 +89,11 @@ public class Grip : MonoBehaviour
                 }
                 // grabObject.transform.position = transform.position + transform.forward * 0.01f;
                 grabObject.transform.parent = gameObject.transform;
+
+                ItemDescription itemDesc = grabObject.GetComponent<ItemDescription>();
+                if (itemDesc) {
+                    itemDesc.Show();
+                }
             }
         }
     }
