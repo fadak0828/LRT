@@ -24,14 +24,14 @@ public class Grip : MonoBehaviour
 
     void Update()
     {
-        /*if (grip.GetStateDown(hand))
+        if (grip.GetStateDown(hand))
         {
             Catch();
         }
         if (grip.GetStateUp(hand))
         {
             Throw();
-        }*/
+        }
     }
 
     internal void 놔줘()
@@ -58,13 +58,11 @@ public class Grip : MonoBehaviour
             grabObject = cols[0].gameObject;
             if (grabObject != null)
             {
-                //grabObject.잡다(transform.position, transform);
                 // 만약 다른손이 잡고있던 물체였다면 다른손에게 "놔줘" 라고 요청하고싶다
                 if (grabObject.transform.parent != null)
                 {
                     grabObject.transform.parent = null;
                 }
-                // grabObject.transform.position = transform.position + transform.forward * 0.01f;
                 grabObject.transform.parent = gameObject.transform;
             }
         }

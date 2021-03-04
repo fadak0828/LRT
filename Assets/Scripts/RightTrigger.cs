@@ -67,9 +67,4 @@ public class RightTrigger : MonoBehaviour
             }
         }
     }
-
-    public void OnClickButton(Text text)
-    {
-        
-    }
 }
