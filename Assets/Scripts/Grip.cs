@@ -13,6 +13,8 @@ public class Grip : MonoBehaviour
     public SteamVR_Input_Sources hand;
     public LineRenderer lr;
 
+    public float kAdjust;
+    
     public GameObject grabObject;
 
     private void Start()
@@ -22,32 +24,6 @@ public class Grip : MonoBehaviour
 
     void Update()
     {
-        // // 트리거를 당기면
-        // if (trigger.GetState(hand))
-        // {
-        //     // 선을 그리고 싶다.
-        //     lr.enabled = true;
-
-        //     // Ray를 이용해서 바라보고
-        //     Ray ray = new Ray(transform.position, transform.forward);
-        //     lr.SetPosition(0, ray.origin);
-        //     RaycastHit hitInfo;
-        //     if (Physics.Raycast(ray, out hitInfo))
-        //     {
-        //         lr.SetPosition(1, hitInfo.point);
-        //         // 만약 부딪힌것이 Grabbable 이면 당겨오고싶다.
-        //         if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
-        //         {
-        //             hitInfo.transform.position = Vector3.Lerp(hitInfo.transform.position, transform.position, Time.deltaTime * 5);
-        //         }
-        //     }
-        // }
-        // else
-        // {
-        //     // 트리거를 놓으면 선을 그리지 않고싶다.
-        //     lr.enabled = false;
-        // }
-
         if (grip.GetStateDown(hand))
         {
             Catch();
@@ -57,6 +33,7 @@ public class Grip : MonoBehaviour
             Throw();
         }
     }
+
     internal void 놔줘()
     {
         grabObject = null;
@@ -81,13 +58,11 @@ public class Grip : MonoBehaviour
             grabObject = cols[0].gameObject;
             if (grabObject != null)
             {
-                //grabObject.잡다(transform.position, transform);
                 // 만약 다른손이 잡고있던 물체였다면 다른손에게 "놔줘" 라고 요청하고싶다
                 if (grabObject.transform.parent != null)
                 {
                     grabObject.transform.parent = null;
                 }
-                // grabObject.transform.position = transform.position + transform.forward * 0.01f;
                 grabObject.transform.parent = gameObject.transform;
 
                 ItemDescription itemDesc = grabObject.GetComponent<ItemDescription>();
