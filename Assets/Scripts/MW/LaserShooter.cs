@@ -12,6 +12,7 @@ public class LaserShooter : MonoBehaviour
 
     private void Awake() {
         lineRenderer = gameObject.AddComponent<LineRenderer>();
+        lineRenderer.enabled = false;
     }
 
     void Start()

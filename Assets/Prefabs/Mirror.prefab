@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 780348589674050502}
   - component: {fileID: 780348589674050498}
   - component: {fileID: 780348589674050525}
+  - component: {fileID: 218435874379654921}
   m_Layer: 0
   m_Name: Mirror
   m_TagString: Untagged
@@ -204,3 +205,20 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &218435874379654921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780348589674050503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf475b691f73ac34796aeb1a741e4635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isShowed: 0
+  description: "\uBE5B\uACFC \uAC19\uC740 \uC0C9\uC758 \uACE8\uC744 \uCC3E\uC544
+    \uADF8\uACF3\uC73C\uB85C\\n\uBE5B\uC744 \uBC18\uC0AC\uC2DC\uD0A4\uC138\uC694!"
+  allShowTime: 1
+  duration: 3
