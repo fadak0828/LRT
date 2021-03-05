@@ -19,7 +19,7 @@ public class Tester : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Fader.instance.Fadein(2);
+            Fader.instance.Fadein(1);
 
         }
     }
