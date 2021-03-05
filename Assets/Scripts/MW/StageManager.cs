@@ -23,7 +23,7 @@ public class StageManager : MonoBehaviour
         bool allGoalIn = needGoals.Select(g => g.goalIn).All(g => g);
         if (allGoalIn) {
             timer += Time.deltaTime;
-            if (timer > 3) {
+            if (timer > 1.5f) {
                 //2초 뒤에 벽 내려가기
                 StageClear();
                 this.enabled = false;

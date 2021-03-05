@@ -83,10 +83,6 @@ public class Teleport : MonoBehaviour
                 {
                     // 그곳으로 이동하고 싶다
                     transform.position = hitInfo.point + new Vector3(0, transform.position.y, 0);
-
-                    Vector3 headPos = SteamVR_Render.Top().head.position;
-                    SteamVR_Render.Top().head.position = new Vector3(0, headPos.y, 0);
-                    
                     // tower 같은 곳으로 이동할때 사용함
                     //transform.position = hitInfo.transform.position;
                 }

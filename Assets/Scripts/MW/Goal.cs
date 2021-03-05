@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 [ExecuteInEditMode]
 public class Goal : LaserInput
@@ -80,6 +81,8 @@ public class Goal : LaserInput
             count++;
             GetComponent<Renderer>().material.SetColor("_EmissionColor", Laser.GetColor(needColor) * bright);
 
+            Vibration.instance.Pulse(0.1f, 20, 0.1f, SteamVR_Input_Sources.Any);
+
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -89,9 +92,13 @@ public class Goal : LaserInput
        // particle.transform.eulerAngles = new Vector3(180, 0, 0);
         particle.GetComponent<ParticleSystem>().Stop();
         particle.GetComponent<ParticleSystem>().Play();
+
+        Vibration.instance.Pulse(3.5f, 320, 1, SteamVR_Input_Sources.Any);
+
         Destroy(particle, 1);
         gameObject.SetActive(false);
     }
+
     private void EmissionOff()
     {
         if (brightCoroutine != null) {
