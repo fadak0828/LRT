@@ -5,12 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class EndingSceneChanger : MonoBehaviour
 {
-
-    public void MainGame()
+    void SceneChange()
     {
         SceneManager.LoadScene("StartScene");
     }
-    
+    public void MainGame()
+    {
+        Fader.instance.FadeOut(1, SceneChange);
+    }
+
     public void ExitGame()
     {
         Application.Quit();

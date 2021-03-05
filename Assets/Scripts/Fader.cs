@@ -25,7 +25,7 @@ public class Fader : MonoBehaviour
 
     IEnumerator ieFadeOut()
     {
-        float add = Time.deltaTime;
+        float add = Mathf.Min(Time.deltaTime, 1/60f);
         Color c = imageFader.color;
         for (float a = 0; a < fadeOutTime; a += add)
         {
@@ -53,7 +53,7 @@ public class Fader : MonoBehaviour
 
     IEnumerator ieFadein()
     {
-        float add = Time.deltaTime;
+        float add = Mathf.Min(Time.deltaTime, 1 / 60f);
         Color c = imageFader.color;
         for (float a = 0; a < fadeOutTime; a += add)
         {
