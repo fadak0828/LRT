@@ -14,7 +14,11 @@ public class AutoResizeText : MonoBehaviour
             if (textBox == null) {
                 textBox = GetComponent<Text>();
             }
+
             _text = value;
+
+            bool isActiveBg = _text != null && _text.Length > 0;
+            background.gameObject.SetActive(isActiveBg);
 
             TextGenerator textGen = new TextGenerator();
             TextGenerationSettings generationSettings = textBox.GetGenerationSettings(new Vector2(1000, 45));
