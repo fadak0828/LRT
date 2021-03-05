@@ -12,7 +12,7 @@ public class StageManager : MonoBehaviour
     public List<Goal> needGoals;
 
     public List<GameObject> environments;
-    public float timer = 0;
+    private float timer = 0;
 
     
     private void Start() {
