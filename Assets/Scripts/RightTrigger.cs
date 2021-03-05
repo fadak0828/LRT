@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Valve.VR;
 
 public class RightTrigger : MonoBehaviour
@@ -66,5 +67,6 @@ public class RightTrigger : MonoBehaviour
                 }
             }
         }
+
     }
 }
