@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 [ExecuteInEditMode]
 public class Goal : LaserInput
@@ -10,10 +11,13 @@ public class Goal : LaserInput
     public GameObject redMarker;
     public GameObject blueMarker;
     public GameObject greenMarker;
+    public GameObject particleFacotry;
 
     private Color originEmissionColor;
     private Color emissionColor;
     public bool _goalIn;
+    private Coroutine brightCoroutine;
+
     public bool goalIn
     {
         get { return _goalIn; }
@@ -56,15 +60,51 @@ public class Goal : LaserInput
 
         originEmissionColor = GetComponent<Renderer>().material.GetColor("_EmissionColor");
         goalIn = false;
+
+        
     }
 
     private void EmissionOn()
     {
-        GetComponent<Renderer>().material.SetColor("_EmissionColor", Laser.GetColor(needColor) * 0.8f);
+        /////
+
+        brightCoroutine = StartCoroutine(Bright());       
+        //////
+    }
+    //인보크 사용해서 점점 밝게 하기
+    IEnumerator Bright() {
+        int count = 0;
+        float bright = 0;
+
+        while (count < 15) {
+            bright += 0.08f;
+            count++;
+            GetComponent<Renderer>().material.SetColor("_EmissionColor", Laser.GetColor(needColor) * bright);
+
+            Vibration.instance.Pulse(0.1f, 20, 0.1f, SteamVR_Input_Sources.Any);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+   public void OnStageClear() {
+        GameObject particle = Instantiate(particleFacotry);
+        particle.transform.position = transform.position;
+       // particle.transform.eulerAngles = new Vector3(180, 0, 0);
+        particle.GetComponent<ParticleSystem>().Stop();
+        particle.GetComponent<ParticleSystem>().Play();
+
+        Vibration.instance.Pulse(3.5f, 320, 1, SteamVR_Input_Sources.Any);
+
+        Destroy(particle, 1);
+        gameObject.SetActive(false);
     }
 
     private void EmissionOff()
     {
+        if (brightCoroutine != null) {
+            StopCoroutine(brightCoroutine);
+            brightCoroutine = null;
+        }
         GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.black);
     }
 

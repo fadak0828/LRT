@@ -134,6 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2771010812795620645}
   - component: {fileID: 3476463437275757159}
+  - component: {fileID: 4195258877622277264}
   m_Layer: 8
   m_Name: Mirror_Sum
   m_TagString: Untagged
@@ -173,6 +174,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0019004, y: 0.83258206, z: 2.0192797}
   m_Center: {x: 0.003096481, y: 0.45543683, z: -0.025269758}
+--- !u!114 &4195258877622277264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260407168133978015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf475b691f73ac34796aeb1a741e4635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: "\uC774\uAC74 \uBE5B \uD569\uC131\uAE30\uB124\uC694!\n\uC11C\uB85C
+    \uB2E4\uB978 \uC0C9\uC744 \uD569\uCCD0 \n\uC0C8\uB85C\uC6B4 \uC0C9\uC758 \uB9CC\uB4E4\uC5B4
+    \uB0B4\uC138\uC694!"
+  allShowTime: 1
+  duration: 3
 --- !u!1 &3546337390382116196
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,8 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b97cc926448de64485bae5b5539bf46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputColors: 0
-  needColors: 
+  colorMask: 0
   output: {fileID: 909516872}
 --- !u!1 &4977275923205298243
 GameObject:

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Valve.VR;
 
 public class RightTrigger : MonoBehaviour
@@ -52,7 +53,8 @@ public class RightTrigger : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         lr.SetPosition(0, ray.origin);
         lr.SetPosition(1, ray.origin + ray.direction * 100f);
-     
+        
+        // 만약 오른쪽 Trigger 버튼을 누르면
         if (trigger.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
             RaycastHit[] hits = Physics.RaycastAll(ray);
@@ -66,10 +68,5 @@ public class RightTrigger : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void OnClickButton(Text text)
-    {
-        
     }
 }

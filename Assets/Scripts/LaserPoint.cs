@@ -19,7 +19,6 @@ public class LaserPoint : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
-
             if (hit.collider)
             {
                 lr.SetPosition(1, hit.point);
