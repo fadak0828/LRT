@@ -13,6 +13,8 @@ public class Grip : MonoBehaviour
     public SteamVR_Input_Sources hand;
     public LineRenderer lr;
 
+    public float kAdjust;
+    
     public GameObject grabObject;
 
     private void Start()
@@ -22,41 +24,16 @@ public class Grip : MonoBehaviour
 
     void Update()
     {
-        // // 트리거를 당기면
-        // if (trigger.GetState(hand))
-        // {
-        //     // 선을 그리고 싶다.
-        //     lr.enabled = true;
-
-        //     // Ray를 이용해서 바라보고
-        //     Ray ray = new Ray(transform.position, transform.forward);
-        //     lr.SetPosition(0, ray.origin);
-        //     RaycastHit hitInfo;
-        //     if (Physics.Raycast(ray, out hitInfo))
-        //     {
-        //         lr.SetPosition(1, hitInfo.point);
-        //         // 만약 부딪힌것이 Grabbable 이면 당겨오고싶다.
-        //         if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Grabbable"))
-        //         {
-        //             hitInfo.transform.position = Vector3.Lerp(hitInfo.transform.position, transform.position, Time.deltaTime * 5);
-        //         }
-        //     }
-        // }
-        // else
-        // {
-        //     // 트리거를 놓으면 선을 그리지 않고싶다.
-        //     lr.enabled = false;
-        // }
-
-        if (grip.GetStateDown(hand))
+        /*if (grip.GetStateDown(hand))
         {
             Catch();
         }
         if (grip.GetStateUp(hand))
         {
             Throw();
-        }
+        }*/
     }
+
     internal void 놔줘()
     {
         grabObject = null;

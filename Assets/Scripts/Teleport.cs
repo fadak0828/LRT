@@ -49,24 +49,23 @@ public class Teleport : MonoBehaviour
         {
             // 조준선이 보이고
             lr.SetPosition(1, hitInfo.point);
-
-            // ray가 floor에 맞았으면 마커의 position을 hitInfo.point와 같게한다 
-            if (teleport.GetState(SteamVR_Input_Sources.LeftHand) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Floor")) {
-                maker.transform.position = hitInfo.point;
-                maker.SetActive(true);
-            } else {
-                maker.SetActive(false);
-            }
         }
         else
         {
             // 허공
             Vector3 pos = ray.origin + ray.direction * 100;
             lr.SetPosition(1, pos);
-            maker.SetActive(false);
         }
 
-
+        
+        // ray가 floor에 맞았으면 마커의 position을 hitInfo.point와 같게한다 
+        if (teleport.GetState(SteamVR_Input_Sources.LeftHand) && hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Floor"))
+        {
+            maker.transform.position = hitInfo.point;
+            maker.SetActive(true);
+        } else {
+            maker.SetActive(false);
+        }
 
         // 그렇지 않고 왼쪽 컨트롤러의 teleport 버튼을 떼면
         if (teleport.GetStateUp(SteamVR_Input_Sources.LeftHand))
